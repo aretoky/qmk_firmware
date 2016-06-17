@@ -838,7 +838,10 @@ static void setup_mcu(void)
     wdt_disable();
 
     /* Disable clock division */
-    clock_prescale_set(clock_div_1);
+    // clock_prescale_set(clock_div_1);
+
+    CLKPR = (1 << CLKPCE);
+    CLKPR = (0 << CLKPS3) | (0 << CLKPS2) | (0 << CLKPS1) | (0 << CLKPS0);
 }
 
 static void setup_usb(void)
@@ -947,10 +950,10 @@ void fallthrough_callback(MidiDevice * device,
   if (cnt == 3) {
     switch (byte0 & 0xF0) {
         case MIDI_NOTEON:
-            play_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
+            play_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
             break;
         case MIDI_NOTEOFF:
-            stop_note(((double)261.6)*pow(2.0, -1.0)*pow(2.0,(byte1 & 0x7F)/12.0));
+            stop_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0));
             break;
     }
   }
