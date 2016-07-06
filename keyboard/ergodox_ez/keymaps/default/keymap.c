@@ -10,27 +10,35 @@
 //#define KC_COLN LSFT(KC_SCLN)
 #define KC_UNDB LSFT(KC_MINS)
 
+#define JA_CLON KC_QUOT  // : and +
+#define JA_AT   KC_LBRC  // @ and `
+#define JA_HAT  KC_EQL   // ^ and ~
+#define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
+#define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
+#define JA_LBRC KC_RBRC  // [ and {
+#define JA_RBRC KC_BSLS  // ] and }
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |    1   |   2  |   3  |   4  |   5  |   6  |Grv/L2|           |   7  |   8  |   9  |   0  |   -  |   =  |  \/L2  |
+ * |    1   |   2  |   3  |   4  |   5  |   6  |Grv/L2|           |   ^  |   7  |   8  |   9  |   0  |   -  |  \/L2  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   '    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   @    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   :    |
  * |--------+------+------+------+------+------| Lclk |           | Rclk |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| ¥ _ / S|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | ~L1  |AltShf| LAlt | Cmd  | EISU |                                       | KANA |  Cmd |[/RAlt|   ]  | ~L1  |
+ *   | ~L1  |AltShf| LAlt | Cmd  | EISU |                                       | KANA |[/Cmd |]/RAlt|   ^  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                  ,-------------------.       ,--------------.
- *                                  |  MsLeft | MsRight |       | LEFT | RIGHT |
+ *                                  |   Cut   |  Paste  |       | LEFT | RIGHT |
  *                           ,------|---------|---------|       |------+-------+-------.
- *                           |      |         |   MsUp  |       |  UP  |       |       |
+ *                           |      |         |  Copy   |       |  UP  |       |       |
  *                           | Space|Backspace|---------|       |------|BKSpace| Enter |
  *
- *                           |      |         |  MsDown |       | DOWN |       |       |
+ *                           |      |         |  Undo   |       | DOWN |       |       |
  *                            `-------------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -42,15 +50,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL,         KC_A,            KC_S,     KC_D,   KC_F,   KC_G,
         KC_LSFT,          KC_Z,            KC_X,     KC_C,   KC_V,   KC_B,   KC_BTN1,
         MO(SYMB),         LALT(KC_LSFT),   KC_LALT,  KC_LGUI,KC_LANG2,
-                                                                KC_MS_L,KC_MS_R,
-                                                                        KC_MS_U,
-                                                         KC_SPC,KC_BSPC,KC_MS_D,
+                                                               LGUI(KC_X) ,LGUI(KC_V),
+                                                                        LGUI(KC_C),
+                                                         KC_SPC,KC_BSPC,LGUI(KC_Z),
         // right hand
-        KC_7,        KC_8,   KC_9,         KC_0,   KC_MINS,KC_EQL,           LT(MDIA, KC_BSLS),
-        MO(SYMB),    KC_Y,   KC_U,         KC_I,   KC_O,   KC_P,             KC_QUOT,
-                     KC_H,   KC_J,         KC_K,   KC_L,   KC_SCLN,          KC_COLN,
-        KC_BTN2,     KC_N,   KC_M,         KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                             KC_LANG1, KC_RGUI,ALT_T(KC_LBRC),KC_RBRC,       MO(SYMB),
+        JA_HAT,      KC_7,   KC_8,         KC_9,   KC_0,   KC_MINS,          LT(MDIA, JA_ENVL),
+        MO(SYMB),    KC_Y,   KC_U,         KC_I,   KC_O,   KC_P,             JA_AT,
+                     KC_H,   KC_J,         KC_K,   KC_L,   KC_SCLN,          JA_CLON,
+        KC_BTN2,     KC_N,   KC_M,         KC_COMM,KC_DOT, CTL_T(KC_SLSH),   SFT_T(JA_ENUN),
+                             KC_LANG1, MT(KC_RGUI,JA_LBRC),ALT_T(JA_RBRC),JA_RBRC,       MO(SYMB),
         KC_LEFT,     KC_RIGHT,
         KC_UP,
         KC_DOWN,KC_BSPC,KC_ENT
